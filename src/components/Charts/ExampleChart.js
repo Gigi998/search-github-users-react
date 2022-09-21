@@ -29,7 +29,7 @@ const ChartComponent = ({ data }) => {
       // Chart Configuration
       chart: {
         //Set the chart caption
-        caption: "Countries With Most Oil Reserves [2017-18]",
+        caption: "test",
         //Set the chart subcaption
         subCaption: "In MMbbl = One Million barrels",
         //Set the x-axis name

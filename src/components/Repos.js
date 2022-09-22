@@ -13,11 +13,13 @@ const Repos = () => {
 
   //Counting language occurrences logic
   for (const elemet of languageCount) {
-    const { language } = elemet;
+    const { language, stargazers_count } = elemet;
     if (objectChartData[language]) {
       objectChartData[language] += 1;
+      objectChartData[`stars${language}`] += stargazers_count;
     } else {
       objectChartData[language] = 1;
+      objectChartData[`stars${language}`] = stargazers_count;
     }
   }
 
@@ -25,6 +27,21 @@ const Repos = () => {
   const chartData = Object.entries(objectChartData)
     .map((item) => {
       return { label: item[0], value: item[1] };
+    })
+    .filter((item) => {
+      return item.label.slice(0, 5) !== "stars";
+    })
+    //Render 5 most used languages
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+
+  //Filtering starsData
+  const starsData = Object.entries(objectChartData)
+    .map((item) => {
+      return { label: item[0], value: item[1] };
+    })
+    .filter((item) => {
+      return item.label.slice(0, 5) === "stars";
     })
     //Render 5 most used languages
     .sort((a, b) => b.value - a.value)
@@ -35,6 +52,9 @@ const Repos = () => {
       <Wrapper className="section-center">
         {/* <ExampleChart data={chartData} /> */}
         <Pie3D data={chartData} />
+        <div></div>
+        <Doughnut2D data={starsData} />
+        <div></div>
       </Wrapper>
     </section>
   );

@@ -47,14 +47,31 @@ const Repos = () => {
     .sort((a, b) => b.value - a.value)
     .slice(0, 5);
 
+  //Stars and forks data
+  let { stars, forks } = repos.reduce(
+    (acc, item) => {
+      const { name, stargazers_count, forks } = item;
+      acc.stars[stargazers_count] = { label: name, value: stargazers_count };
+      acc.forks[forks] = { label: name, value: forks };
+      return acc;
+    },
+    {
+      stars: {},
+      forks: {},
+    }
+  );
+
+  //Converting and slicing
+  stars = Object.values(stars).slice(-5).reverse();
+  forks = Object.values(forks).slice(-5).reverse();
+
   return (
     <section className="section">
       <Wrapper className="section-center">
-        {/* <ExampleChart data={chartData} /> */}
         <Pie3D data={chartData} />
-        <div></div>
+        <Column3D data={stars} />
         <Doughnut2D data={starsData} />
-        <div></div>
+        <Bar3D data={forks} />
       </Wrapper>
     </section>
   );

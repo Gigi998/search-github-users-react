@@ -54,15 +54,34 @@ const GithubProvider = ({ children }) => {
   const fetchUser = async (user) => {
     //Remove error
     errorHandling();
-
+    setIsLoading(true);
     const response = await axios(`${rootUrl}/users/${user}`).catch((error) =>
       console.log(error)
     );
     if (response) {
       setGithubUser(response.data);
+      const { login, followers_url } = response.data;
+      //Render all at the same time
+      await Promise.allSettled([
+        axios(`${rootUrl}/users/${login}/repos?per_page=100`),
+        axios(`${followers_url}?per_page=100`),
+      ])
+        .then((result) => {
+          const [repos, followers] = result;
+          const status = "fulfilled";
+          if (repos.status === status) {
+            setRepos(repos.value.data);
+          }
+          if (followers.status === status) {
+            setFollowers(followers.value.data);
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
       errorHandling(true, "there is no user with that username");
     }
+    setIsLoading(false);
+    fetchRequests();
   };
 
   //Request useEffect

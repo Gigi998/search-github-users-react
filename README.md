@@ -1,6 +1,6 @@
 # Search Github users
 
-Project in Action -[Search Github Users](<[Jobster](https://redux-jobs-project.netlify.app/)>)
+Project in Action -[Search Github Users](https://search-github-users-react-project.netlify.app/)
 
 ## Project from Udemy React Course
 

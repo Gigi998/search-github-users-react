@@ -1,3 +1,11 @@
+# Search Github users
+
+Project in Action -[Search Github Users](<[Jobster](https://redux-jobs-project.netlify.app/)>)
+
+## Project from Udemy React Course
+
+[React Course](https://www.udemy.com/course/react-tutorial-and-projects-course/?referralCode=FEE6A921AF07E2563CEF)
+
 ## Starter Project
 
 - css provided (global styles, styled components)
